@@ -5,6 +5,7 @@
 {
     function DisplayHomePage()
     {
+        console.log("Home Page");
         let AboutUsButton = document.getElementById("AboutUsButton");
         console.log(AboutUsButton);
 
@@ -61,26 +62,83 @@
         // MainContent.before(NewH1);
 
         // NewH1.textContent = "Hello, World!";
+        let tuba = new Contact("tuba", "555-555-5555", "tuba@example.com");
+        console.log(tuba.toString());
     }
 
     function DisplayProductsPage()
     {
-
+        console.log("Products Page");
     }
 
     function DisplayServicesPage()
     {
-
+        console.log("Services Page");
     }
 
     function DisplayAboutPage()
     {
-
+        console.log("About Page");
     }
 
     function DisplayContactPage()
     {
+        console.log("Contact Us Page");
 
+        let sendButton = document.getElementById("sendButton");
+        let subscribeCheckbox = document.getElementById("subscribeCheckbox");
+
+        //localStorage.setItem("1", "Tuba");
+        //console.log(localStorage.getItem("1"));
+        //localStorage.removeItem("item")
+        
+        sendButton.addEventListener("click", function(event)
+        {
+            
+            //event.preventDefault(); // for debugging
+
+            if(subscribeCheckbox.checked)
+            {
+                //console.log("Check box checked!");
+                let contact = new  Contact(fullName.value, contactNumber.value, emailAddress.value);
+                if(contact.serialize())
+                {
+                    let key = contact.FullName.substring(0,1) + Date.now();
+                    localStorage.setItem(key, contact.serialize());
+                }
+            }
+        });
+    }
+
+    function DisplayContactListPage()
+    {
+        console.log("Contact-List Page");
+
+        if(localStorage.length > 0) // check if local storgar has sthn in it
+        {
+            let contactList = document.getElementById("contactList");
+            let data = "";
+            let keys  = Object.keys(localStorage);
+
+            let index = 1;
+            
+            // for every key in the keys collection
+            for(const key of keys)
+            {
+                let contactData = localStorage.getItem(key); // retrives conact data from local storage 
+                let contact = new Contact(); // create an empty conatct object 
+                contact.deserialize(contactData);
+                data += `<tr>
+                <th scope = "row" class="text-centre">${index}</th>
+                <td>${contact.FullName}</td>
+                <td>${contact.ContactNumber}</td>
+                <td>${contact.EmailAddress}</td>
+                </tr>`;
+                index++;
+            }
+         contactList.innerHTML = data;
+
+        }
     }
 
     // named function 
@@ -109,7 +167,10 @@
             case "Contact Us":
                 DisplayContactPage();
                 break;
-
+            
+            case "Contact-List":
+                DisplayContactListPage();
+                break;
             
         }
         
