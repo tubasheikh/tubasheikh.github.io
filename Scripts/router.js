@@ -110,16 +110,16 @@
 
 let router =  new core.Router();
 router.AddRoutingTable([
-    "/", // Default Route
-    "/home",
-    "/about",
-    "/services",
-    "/contact",
-    "/contact-list",
-    "/products",
-    "/register",
-    "/login",
-    "/edit"
+    "/#/", // Default Route
+    "/#/home",
+    "/#/about",
+    "/#/services",
+    "/#/contact",
+    "/#/contact-list",
+    "/#/products",
+    "/#/register",
+    "/#/login",
+    "/#/edit"
 ]);
 
 let route = location.pathname; // alias for location.pathname
@@ -131,7 +131,7 @@ let route = location.pathname; // alias for location.pathname
 // if the route is "/" 
 // if so return home 
 // else return 404 
-router.ActiveLink = (router.Find(route) > -1) ? (route == "/") ? "home" : route.substring(1) : "404"
+router.ActiveLink = (router.Find(route) > -1) ? (route == "/#/") ? "home" : route.substring(1) : "404"
 
 // // if route is found in the routing table 
 // if(router.Find(route) > -1)
