@@ -33,15 +33,23 @@
     /**
      * This function loads the NavBar from the header file and injects it into the page
      *
-     * @param {string} data
+     * 
      */
-    function LoadHeader(data)
+    function LoadHeader()
     {
-        $("header").html(data); // data payload
+        $.get("./Views/components/header.html", function(html_data){
+
+        // inject Header content into the page 
+        $("header").html(html_data); // data payload
+
+        // capitalize the active link and then set the document tilte to the new String
+        document.title = router.ActiveLink.substring(0, 1).toUpperCase() + router.ActiveLink.substring(1);
+
         $(`li>a:contains(${document.title})`).addClass("active"); // add a class of 'active'
         CheckLogin();
+        });
+        
     }
-
 
     function DisplayAboutPage()
     {
@@ -65,7 +73,7 @@
 
         $("#AboutUsButton").on("click", function()
         {
-            location.href = "about.html";
+            location.href = "/about";
         });
 
         $("main").append(`<p id="MainParagraph" class="mt-3">This is the Main Paragraph</p>`);
@@ -146,10 +154,11 @@
             }
         });
 
+        //
         if(sessionStorage.getItem("user"))
         {
             $("form").after(`<div class="col-lg-4 col-md-4">
-            <a href="contact-list.html" id ="contactListButton" class="btn btn-primary btn-lg"><i class="fas fa-users fa-lg"></i> Show Contact
+            <a href="/contact-list" id ="contactListButton" class="btn btn-primary btn-lg"><i class="fas fa-users fa-lg"></i> Show Contact
               List</a>`);
         }
 
@@ -191,10 +200,7 @@
 
             contactList.innerHTML = data;
 
-            $("#addButton").on("click", () =>
-            {
-                location.href = "edit.html#add";
-            });
+            
 
             $("button.delete").on("click", function()
             {
@@ -203,14 +209,19 @@
                     localStorage.removeItem($(this).val());
                 }
                 
-                location.href = "contact-list.html";
+                location.href = "/contact-list";
             });
 
             $("button.edit").on("click", function() 
             {
-                location.href = "edit.html#" + $(this).val();
+                location.href = "/edit#" + $(this).val();
             });
         }
+
+        $("#addButton").on("click", () =>
+            {
+                location.href = "/edit#add";
+            });
     }
 
     function DisplayEditPage()
@@ -235,12 +246,12 @@
                         // Add Contactt
                         AddContact(fullName.value, contactNumber.value, emailAddress.value);
                         // Refresh the contact-list page
-                        location.href ="contact-list.html";
+                        location.href ="/contact-list";
                     });
 
                     $("#cancelButton").on("click", () =>
                     {
-                        location.href ="contact-list.html";
+                        location.href ="/contact-list";
                     });
 
                 }
@@ -270,12 +281,12 @@
                         localStorage.setItem(page, contact.serialize());
 
                         // return to the contact-list
-                        location.href ="contact-list.html";
+                        location.href ="/contact-list";
                     });
 
                     $("#cancelButton").on("click", () =>
                     {
-                        location.href ="contact-list.html";
+                        location.href ="/contact-list";
                     });
                     
                 }
@@ -325,7 +336,7 @@
                     messageArea.removeAttr("class").hide();
 
                     // redirect the user to the secure area of our site - contact-list
-                    location.href = "contact-list.html";
+                    location.href = "/contact-list";
                 }
                 else
                 {
@@ -343,7 +354,7 @@
                 document.forms[0].reset();
 
                 // return to  the home page
-                location.href = "index.html";
+                location.href = "home";
             });
         });
     }
@@ -354,7 +365,7 @@
         if(sessionStorage.getItem("user"))
         {
             $("#login").html(
-                `<a id ="logout" class="nav-link"  href="login.html"><i class="fas fa-sign-out-alt"></i> Logout</a>`
+                `<a id ="logout" class="nav-link"  href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>`
             );
 
             
@@ -364,7 +375,7 @@
                 sessionStorage.clear();
 
                 // redirect to login
-                location.href = "login.html";
+                location.href = "/login";
             });
 
            
@@ -377,42 +388,77 @@
         console.log("Register Page");
     }
 
+    function Display404Page()
+    {
+
+    }
+    /**
+     *
+     *
+     * @returns {void}
+     */
+     function LoadContent()
+     {
+         let page_name = router.ActiveLink; // alias 
+         let callback = ActiveLinkCallBack(); // returns a reference to the appropriate function
+         $.get(`./Views/content/${page_name}.html`, function(html_data)
+         {
+             $("main").html(html_data); // data payload
+ 
+             callback();
+         });
+     }
+
+    /**
+     * @returns{void}
+     */
+    function LoadFooter()
+    {
+        $.get("./Views/components/footer.html", function(html_data)
+        {
+            $("footer").html(html_data); // data payload
+        });
+    }
+
+    /**
+     *
+     *
+     * @param {string} activeLink
+     * @returns {function}
+     */
+    function ActiveLinkCallBack()
+    {
+        switch(router.ActiveLink)
+        {
+            case "home": return DisplayHomePage;
+            case "about" :return DisplayAboutPage;
+            case "products" : return DisplayProductsPage;
+            case "services" :return DisplayServicesPage;
+            case "contact" : return DisplayContactPage;
+            case "contact-list" : return DisplayContactListPage;
+            case "edit": return DisplayEditPage;
+            case "login" : return DisplayLoginPage;
+            case "register" : return DisplayRegisterPage;
+            case "404" : return Display404Page;
+            default:
+                console.error("ERROR: callback does not exist " + activeLink);
+                break;
+        }
+        
+
+
+    }
+
     // named function
     function Start()
     {      
         console.log("App Started!!")
-        AjaxRequest("GET", "header.html", LoadHeader);
+
+        LoadHeader();
         
-        switch (document.title) {
-          case "Home":
-            DisplayHomePage();
-            break;
-          case "Contact Us":
-            
-            DisplayContactPage();
-            break;
-          case "Contact-List":
-            DisplayContactListPage();
-            break;
-          case "About Us":
-            DisplayAboutPage();
-            break;
-          case "Our Products":
-            DisplayProductsPage();
-            break;
-          case "Our Services":
-            DisplayServicesPage();
-            break;
-          case "Edit":
-            DisplayEditPage();
-            break;
-          case "Login":
-            DisplayLoginPage();
-            break;
-          case "Register":
-            DisplayRegisterPage();
-            break;
-        }
+        LoadContent();
+
+        LoadFooter();
         
     }
 
