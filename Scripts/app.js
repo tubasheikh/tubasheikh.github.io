@@ -1,8 +1,14 @@
+/* Authors:        
+                   Tristan McKone 100817374
+                   Tuba Sheikh 100813394
+   Date Completed: March 20, 2022
+*/ 
 "use strict";
 (function () {
     function AuthGuard() {
         let protected_routes = [
-            "contact-list"
+            "contact-list",
+            "task-list"
         ];
         if (protected_routes.indexOf(router.ActiveLink) > -1) {
             if (!sessionStorage.getItem("user")) {
@@ -20,17 +26,18 @@
             $(this).removeClass("active");
         });
         $(`li>a:contains(${document.title})`).addClass("active");
+        CheckLogin();
         LoadContent();
     }
     function AddNavigationEvents() {
-        let navLinks = $("ul>li>a");
-        navLinks.off("click");
-        navLinks.off("mouseover");
-        navLinks.on("click", function () {
+        let NavLinks = $("ul>li>a");
+        NavLinks.off("click");
+        NavLinks.off("mouseover");
+        NavLinks.on("click", function () {
             LoadLink($(this).attr("data"));
         });
-        navLinks.on("mouseover", function () {
-            $(this).css('cursor', 'pointer');
+        NavLinks.on("mouseover", function () {
+            $(this).css("cursor", "pointer");
         });
     }
     function AddLinkEvents(link) {
@@ -61,19 +68,25 @@
     function LoadContent() {
         let page_name = router.ActiveLink;
         let callback = ActiveLinkCallBack();
-        $.get(`./Views/content/${page_name}.html`, function (html_data) {
-            $("main").html(html_data);
-            CheckLogin();
+        $.get(`./Views/content/${page_name}.html`, function (html_date) {
+            $("main").html(html_date);
             callback();
         });
     }
     function LoadFooter() {
-        $.get("./Views/components/footer.html", function (html_data) {
-            $("footer").html(html_data);
+        $.get(`./Views/components/footer.html`, function (html_date) {
+            $("footer").html(html_date);
         });
     }
-    function DisplayAboutPage() {
-        console.log("About Us Page");
+    function DisplayHomePage() {
+        console.log("Home Page");
+        $("#AboutUsButton").on("click", () => {
+            LoadLink("about");
+        });
+        $("main").append(`<p id="MainParagraph" class="mt-3">This is the Main Paragraph</p>`);
+        $("main").append(`<article>
+        <p id="ArticleParagraph" class ="mt-3">This is the Article Paragraph</p>
+        </article>`);
     }
     function DisplayProductsPage() {
         console.log("Products Page");
@@ -81,15 +94,8 @@
     function DisplayServicesPage() {
         console.log("Services Page");
     }
-    function DisplayHomePage() {
-        console.log("Home Page");
-        $("#AboutUsButton").on("click", function () {
-            LoadLink("about");
-        });
-        $("main").append(`<p id="MainParagraph" class="mt-3">This is the Main Paragraph</p>`);
-        $("main").append(`<article>
-        <p id="ArticleParagraph" class="mt-3">This is the Article Paragraph</p>
-        </article>`);
+    function DisplayAboutPage() {
+        console.log("About Page");
     }
     function AddContact(fullName, contactNumber, emailAddress) {
         let contact = new core.Contact(fullName, contactNumber, emailAddress);
@@ -98,11 +104,11 @@
             localStorage.setItem(key, contact.serialize());
         }
     }
-    function ValidateField(input_field_ID, regular_expression, error_message) {
+    function ValidateField(fieldID, regular_expression, error_message) {
         let messageArea = $("#messageArea").hide();
-        $("#" + input_field_ID).on("blur", function () {
-            let input_text_field = $(this).val();
-            if (!regular_expression.test(input_text_field)) {
+        $("#" + fieldID).on("blur", function () {
+            let text_value = $(this).val();
+            if (!regular_expression.test(text_value)) {
                 $(this).trigger("focus").trigger("select");
                 messageArea.addClass("alert alert-danger").text(error_message).show();
             }
@@ -112,12 +118,12 @@
         });
     }
     function ContactFormValidation() {
-        ValidateField("fullName", /^([A-Z][a-z]{1,3}.?\s)?([A-Z][a-z]{1,25})+(\s|,|-)([A-Z][a-z]{1,25})+(\s|,|-)*$/, "Please enter a valid Full Name. This must include at least a Capitalized first name followed by a Capitalized last Name.");
-        ValidateField("contactNumber", /^(\+\d{1,3}[\s-.])?\(?\d{3}\)?[\s-.]?\d{3}[\s-.]?\d{4}$/, "Please enter a valid Contact Number. Example: (905) 555-5555");
+        ValidateField("fullName", /^([A-Z][a-z]{1,3}.?\s)?([A-Z][a-z]{1,})((\s|,|-)([A-Z][a-z]{1,}))*(\s|,|-)([A-Z][a-z]{1,})$/, "Please enter a valid Full Name. This must include at least a Capitalized First Name and a Capitalized Last Name.");
+        ValidateField("contactNumber", /^(\+\d{1,3}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/, "Please enter a valid Contact Number. Example: (416) 555-5555");
         ValidateField("emailAddress", /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,10}$/, "Please enter a valid Email Address.");
     }
     function DisplayContactPage() {
-        console.log("Contact Us Page");
+        console.log("Contact Page");
         $("a[data='contact-list']").off("click");
         $("a[data='contact-list']").on("click", function () {
             LoadLink("contact-list");
@@ -126,16 +132,19 @@
         let sendButton = document.getElementById("sendButton");
         let subscribeCheckbox = document.getElementById("subscribeCheckbox");
         sendButton.addEventListener("click", function (event) {
-            let fullName = document.forms[0].fullName.value;
-            let contactNumber = document.forms[0].contactNumber.value;
-            let emailAddress = document.forms[0].emailAddress.value;
             if (subscribeCheckbox.checked) {
-                AddContact(fullName, contactNumber, emailAddress);
+                let fullName = document.forms[0].fullName.value;
+                let contactNumber = document.forms[0].contactNumber.value;
+                let emailAddress = document.forms[0].emailAddress.value;
+                let contact = new core.Contact(fullName, contactNumber, emailAddress);
+                if (contact.serialize()) {
+                    let key = contact.FullName.substring(0, 1) + Date.now();
+                    localStorage.setItem(key, contact.serialize());
+                }
             }
         });
     }
     function DisplayContactListPage() {
-        console.log("Contact-List Page");
         if (localStorage.length > 0) {
             let contactList = document.getElementById("contactList");
             let data = "";
@@ -152,8 +161,7 @@
                 <td>${contact.EmailAddress}</td>
                 <td class="text-center"><button value="${key}" class="btn btn-primary btn-sm edit"><i class="fas fa-edit fa-sm"></i> Edit</button></td>
                 <td class="text-center"><button value="${key}" class="btn btn-danger btn-sm delete"><i class="fas fa-trash-alt fa-sm"></i> Delete</button></td>
-                </tr>
-                `;
+                </tr>`;
                 index++;
             }
             contactList.innerHTML = data;
@@ -216,7 +224,15 @@
         }
     }
     function CheckLogin() {
+        if (!sessionStorage.getItem("user")) {
+            $("#task-list").html("");
+        }
         if (sessionStorage.getItem("user")) {
+            $("#task-list").html(`<a id="task-list" class="nav-link" data="task-list"><i class='fas fa-bars'></i> Task list</a>`);
+            AddNavigationEvents();
+            $("#task-list").on("click", function () {
+                LoadLink("task-list");
+            });
             $("#login").html(`<a id="logout" class="nav-link" href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>`);
             $("#logout").on("click", function () {
                 sessionStorage.clear();
@@ -251,13 +267,13 @@
                 }
                 else {
                     $("#username").trigger("focus").trigger("select");
-                    messageArea.addClass("alert alert-danger").text("Error: Invalid Login Information.").show();
+                    messageArea.addClass("alert alert-danger").text("Error: Invalid Login Information").show();
                 }
             });
-            $("#cancelButtton").on("click", function () {
-                document.forms[0].reset();
-                LoadLink("home");
-            });
+        });
+        $("#cancelButton").on("click", function () {
+            document.forms[0].reset();
+            LoadLink("home");
         });
     }
     function DisplayRegisterPage() {
@@ -265,6 +281,68 @@
         AddLinkEvents("login");
     }
     function Display404Page() {
+    }
+    function AddNewTask() {
+        let messageArea = $("#messageArea");
+        messageArea.hide();
+        let taskInput = $("#taskTextInput");
+        let taskInputValue = taskInput.val();
+        if (taskInput.val() != "" && taskInputValue.charAt(0) != " ") {
+            let newElement = `
+               <li class="list-group-item" id="task">
+               <span id="taskText">${taskInput.val()}</span>
+               <span class="float-end">
+                   <button class="btn btn-outline-primary btn-sm editButton"><i class="fas fa-edit"></i>
+                   <button class="btn btn-outline-danger btn-sm deleteButton"><i class="fas fa-trash-alt"></i></button>
+               </span>
+               <input type="text" class="form-control edit-task editTextInput">
+               </li>
+               `;
+            $("#taskList").append(newElement);
+            messageArea.removeAttr("class").hide();
+            taskInput.val("");
+        }
+        else {
+            taskInput.trigger("focus").trigger("select");
+            messageArea.show().addClass("alert alert-danger").text("Please enter a valid Task.");
+        }
+    }
+    function DisplayTaskList() {
+        let messageArea = $("#messageArea");
+        messageArea.hide();
+        let taskInput = $("#taskTextInput");
+        $("#newTaskButton").on("click", function () {
+            AddNewTask();
+        });
+        taskInput.on("keypress", function (event) {
+            if (event.key == "Enter") {
+                AddNewTask();
+            }
+        });
+        $("ul").on("click", ".editButton", function () {
+            let editText = $(this).parent().parent().children(".editTextInput");
+            let text = $(this).parent().parent().text();
+            let editTextValue = editText.val();
+            editText.val(text).show().trigger("select");
+            editText.on("keypress", function (event) {
+                if (event.key == "Enter") {
+                    if (editText.val() != "" && editTextValue.charAt(0) != " ") {
+                        editText.hide();
+                        $(this).parent().children("#taskText").text(editTextValue);
+                        messageArea.removeAttr("class").hide();
+                    }
+                    else {
+                        editText.trigger("focus").trigger("select");
+                        messageArea.show().addClass("alert alert-danger").text("Please enter a valid Task.");
+                    }
+                }
+            });
+        });
+        $("ul").on("click", ".deleteButton", function () {
+            if (confirm("Are you sure?")) {
+                $(this).closest("li").remove();
+            }
+        });
     }
     function ActiveLinkCallBack() {
         switch (router.ActiveLink) {
@@ -277,6 +355,7 @@
             case "edit": return DisplayEditPage;
             case "login": return DisplayLoginPage;
             case "register": return DisplayRegisterPage;
+            case "task-list": return DisplayTaskList;
             case "404": return Display404Page;
             default:
                 console.error("ERROR: callback does not exist: " + router.ActiveLink);
@@ -284,7 +363,7 @@
         }
     }
     function Start() {
-        console.log("App Started!!");
+        console.log("App Started!");
         LoadHeader();
         LoadLink("home");
         LoadFooter();

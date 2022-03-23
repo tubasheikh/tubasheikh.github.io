@@ -1,9 +1,9 @@
 {
-  "name": "ICE-5",
+  "name": "webd6201-w2022-lab3",
   "version": "1.0.0",
-  "description": "repo for WED6201 ICE1",
+  "description": "starter project for lab3",
   "main": "index.js",
-  "author": "Tuba Sheikh",
+  "author": "Tom Tsiliopoulos",
   "license": "MIT",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.4",
@@ -12,6 +12,6 @@
     "jquery": "^3.6.0"
   },
   "devDependencies": {
-    "@types/jquery": "^3.5.13"
+    "@types/jquery": "^3.5.14"
   }
 }
