@@ -4,34 +4,158 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="/js/main.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&family=Roboto:wght@100&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/2b22aff2cf.js" crossorigin="anonymous"></script>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <title>Weather App</title>
+    <title>Tuba Sheikh</title>
 </head>
 <body>
-    <div class="main">
-        <p id="info" class="info"></p>
-        <div id="search" class="search">
-            <input class="input" type="text" placeholder="Enter City Name">
-            <button id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
+    
+    <header>
+        <h1 class="logo">Tuba Sheikh</h1>
+        <input type="checkbox" class="nav-toggle" id="nav-toggle">
+        <nav>
+            <ul>
+                <li><a class="nav_about" href="">About</a></li>
+                <li><a class="nav_tech_stack" href="">Languages</a></li>
+                <li><a class="nav_projects" href="">Projects</a></li>
+                <li><a class="nav_contact" href="">Contact</a> </li>
+            </ul>
+        </nav> 
+        <label for="nav-toggle" class="nav-toggle-label">
+            <span></span>
+        </label>
+    </header>
+    
+    <div class="page-content">
+        <section id="main">
+        <div class="flex">
+            <h1 class="main_heading">Front-end Developer</h1>
+            <p class="sub_heading">I design and code beautifully simple things, and I love what I do.</p>
+            <img class="me" src="/images/icon.jpg">
+            <img class="icon" src="/images/frontendicon.png" alt="Front-end Icon">
         </div>
-            <!--<p>OR</p>-->
-            <button id="getLocation" class="getLocation">Get Device Location</button>
-        <div class="weather">
-            <h2 id="city" class="city"></h2>
-            <div class="temperature-display">
-                <h1 id="temp" class="temp"></h1>
+        </section>
+        
+        <section id="about">
+        
+            <h2>Hi, I'm Tuba. Nice to meet you.</h2>
+            <p id="about_me"> I am a graduate from Durham College in Computer Programming. I am an avid learner who is always on the move to advance my skills. </p>
+        
+        </section>
+   
+
+        <section id="languages">
+            <h1>This is my Tech Stack</h1>
+            <div class="container">
+                
+                <div class="techStack">
+                
+                <div class="tech">
+                    <img src="/images/html.png" alt="HTML Logo">
+                    <span class="tech_name">HTML 5</span>
+                </div>
+                <div class="tech">
+                    <img src="/images/css-3.png" alt="CSS Logo">
+                    <span class="tech_name">CSS 3</span>
+                </div>
+                <div class="tech">
+                    <img src="/images/js.png" alt="JavaScript Logo">
+                    <span class="tech_name">JAVASCRIPT</span>
+                </div>
+                <div class="tech">
+                    <img src="/images/php.png" alt="PHP Logo">
+                    <span class="tech_name">PHP</span>
+                </div>
+                <div class="tech">
+                    <img src="/images/python.png" alt="Python Logo">
+                    <span class="tech_name">PYTHON</span>
+                </div>
+                <div class="tech">
+                    <img src="/images/react.png" alt="React Logo">
+                    <span class="tech_name">REACT</span>
+                </div>
+                <div class="tech">
+                    <img src="/images/sql.png" alt="SQL Logo">
+                    <span class="tech_name">SQL</span>
+                </div>
+                <div class="tech">
+                    <img src="/images/git.png" alt="Git/GitHub Logo">
+                </div>
             </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h1> Here is some of my recent work.</h1>
+            <div class="container">
+                 
+                <div class="project-list">
+                    <div class="project">
+                     <img src="./images/icon.jpg" alt="">
+                    </div>
+                    <div class="project">
+                        <img src="./images/icon.jpg" alt="">
+                    </div>
+                    <div class="project">
+                        <img src="./images/icon.jpg" alt="">
+                    </div>
+                    <div class="project">
+                        <img src="./images/icon.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="contact">
             <div class="flex">
-                    <img src="" alt="Weather Icon" id="weather-icon" class="weather-icon"/>
-                <p id="weather-description" class="weather-description"></p>
+                <h1>Let's get in touch</h1>
+                <div class="messageArea"></div>
+                <div class="form">
+                    <form>
+                        <div class="flex-hor">
+                            <input type="text"  id="firstName" placeholder="First Name" required>
+                            <input type="text"  id="lastName" placeholder="Last Name" required>
+                        </div>
+                        <input type="email" id="emailId" placeholder="Email Address" required>
+                        <textarea rows="6" class="input" id="message" placeholder="Type your Message here!" autocomplete="off" required></textarea>
+                        <div class="flex-hor">
+                            <button class="reset" onclick="resetForm()">Reset</button>
+                            <button class="submit" onclick="submitForm()">Submit</button>
+                        </div> 
+                    </form>
+                </div>
             </div>
-        </div>
-        <div id="humidity" class="humidity"></div>
-        <div id="wind" class="wind"></div>
+        </section>
+    
+
+        <footer>
+            <div class="footer-content">
+                <ul class="socials">
+                    <li class="socials_link">
+                        <i class="fas fa-envelope"></i> 
+                        <span class="socials_name">Email</span> 
+                    </li>
+                    <li class="socials_link">
+                        <i class="fab fa-linkedin-in"></i>
+                        <span class="socials_name">LinkedIn</span> 
+                    </li>
+                    <li class="socials_link">
+                        <i class="fa-brands fa-github"></i> 
+                        <span class="socials_name">GitHub</span> 
+                    </li>
+                    <li class="socials_link">
+                        <i class="fa-solid fa-file"></i> 
+                        <span class="socials_name">Resume</span> 
+                    </li>
+                </ul>
+            </div>
+        </footer>
+
     </div>
-    <script src="./script.js"></script>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
 </body>
 </html>
