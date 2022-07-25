@@ -1,8 +1,10 @@
 
 :root{
-    --custom-color: rgba(200, 216, 228, 1)
-    /*--custom-color: rgba(200, 216, 228, .85)
-    --custom-color: rgba(0, 214, 170, .85)
+    --primary-color: #7DA2A9;
+    --tertiary-color: rgba(200, 216, 228, .85);
+    --secondary-color: rgb(200, 216, 228);
+    /*--primary-color: rgba(200, 216, 228, .85)
+    --primary-color: rgba(0, 214, 170, .85)
     142,228,164,0.85 */
 }
 
@@ -14,8 +16,9 @@ html{
 
 body{
     margin: 0px;
+    padding: 0;
     height: 100%;
-    /*background-color: #EDF5E1;*/
+    background-color: white;
     font-family: 'Poppins', sans-serif;
 }
 
@@ -44,11 +47,13 @@ body{
     */
 }
 
-
+h2{
+    font-weight: bold;
+}
 
 /* NAV BAR STYLES*/
 header{
-    /*background: var(--custom-color);*/
+    /*background: var(--primary-color);*/
     text-align: center;
     position: relative;
     width: 100%; 
@@ -104,7 +109,7 @@ nav{
     text-align: left;
     top: 100%;
     left: 0;
-    background: var(--custom-color);
+    background: var(--primary-color);
     background-color: white;
     width: 100%;
     transform: scale(1,0);
@@ -140,7 +145,7 @@ nav a{
 
 nav a:hover
 {
-    color: var(--custom-color);
+    color: var(--primary-color);
 }
 
 /* Note: ~ looks for nav that is a preceeding  sibling of nav toggle*/
@@ -176,7 +181,7 @@ nav a:hover
     margin: 0 25px;
     height: 50px;
     width: 50px;
-    background-color: var(--custom-color);
+    background-color: var(--primary-color);
     border-radius: 50%;
     color: #222;
     line-height: 50px;
@@ -207,6 +212,16 @@ nav a:hover
 
 /* Tech section */
 
+#languages{
+    background-color: white;
+    border: 1.5px solid var(--tertiary-color);
+    box-shadow: 0px 3px #e4dede;
+    margin-top: -100px;
+    border-radius: 8px;
+    margin-left: 7%;
+    margin-right: 7%;
+}
+
 h1{
     text-align: center;
 }
@@ -219,16 +234,18 @@ h1{
 }
 
 .tech {
-    padding: 3%;
+    padding: 2%;
     display: flex;
     flex-direction: column;
     text-align: center;
+    
 }
 
 .container{
     display: flex;
     /*max-width: 1200px;*/
     width: 100%;
+    align-items: center;
     flex-wrap: wrap;
     justify-content: center;
 }
@@ -273,20 +290,22 @@ img{
 }
 
 #main .icon{
-    margin-top: 1%;
-    width: 650px;
+    margin-top: -4%;
+    /*width: 650px;*/
+    width: 100%;
+
 }
 
 /* ABOUT SECTION*/
 
 .about_text{
     margin-top: 10%;
-    background-color: var(--custom-color);
+    background-color: var(--primary-color);
 }
 
 #about{
     width: 100%;
-    background-color: var(--custom-color);
+    background-color: var(--tertiary-color);
     text-align: center;
 }
 
@@ -295,11 +314,17 @@ img{
 }
 
 #about h2{
-    margin-bottom: 0%;
+    margin-bottom: 10px;
 }
 
 #about p{
-    margin-top: 0%;
+    padding: 0% 3% 0% 3%;
+    margin-top: 0;
+    margin-bottom: 100px;
+}
+
+.about-content{
+    padding: 30px 50px 30px 50px;
 }
 
 @media screen and (min-width: 800px){
@@ -324,7 +349,6 @@ img{
         display: flex;
         justify-content: flex-end;
         align-items: center;
-        
     }
 
     nav ul{
@@ -341,7 +365,7 @@ img{
         content: '';
         display: block;
         height: 5px;
-        background: var(--custom-color);
+        background: var(--primary-color);
         position: absolute;
         bottom: -0.75em;
         left:0;
@@ -359,13 +383,25 @@ img{
         margin-bottom: 0;
     }
 
+    .about-content{
+        padding: 60px 200px 60px 200px;
+    }
 }
+
 
 
 /* CONTACT FORM */
 #contact{
-    background-color: var(--custom-color);
+    background-color: var(--tertiary-color);
     width: 100%;
+}
+
+#contact {
+    margin-top: 70px;
+}
+
+#contact h2, h1{
+    margin-bottom: 0;
 }
 
 form{
@@ -396,8 +432,6 @@ form textarea{
     text-align: center;
 }
 
-
-
 button{
     width: 120px;
 	height: 30px;
@@ -423,14 +457,114 @@ button:hover{
     transform: scale(1.07);
 }
 
+#message{
+    width: 420px;
+    height: 150px;
+}
+
 /* PROJECT SECTION*/
 
 .project-list{
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
     flex-wrap: wrap;
 }
 
 .project{
-    margin: 10px;
+    width: 90%;
+    max-width: 1000px;
+    margin: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.project-img{
+    width: 50%;
+    height: 350px; 
+    z-index: -1;
+}
+
+.project-img img{
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+
+}
+
+.right{
+    width: 50%;
+    min-height: 100px;
+    background-color: var(--secondary-color);
+    display: flex;
+    align-items: center;
+    padding: 30px;
+    justify-content: center;
+    border-radius: 8px;
+    margin-left: -100px;
+}
+
+.left{
+    width: 50%;
+    min-height: 100px;
+    background-color: var(--secondary-color);
+    display: flex;
+    align-items: center;
+    padding: 30px;
+    justify-content: center;
+    border-radius: 8px;
+    margin-right: -100px;
+    
+}
+
+.project-links{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.project-links a{
+    margin-top: 0;
+    padding: 5px;
+}
+
+.tech-used{
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.proj-description{
+    font-size: small;
+}
+
+#projects h2{
+    margin-bottom: 0;
+}
+
+#projects h1{
+    margin-top: 100px;
+}
+
+#projects p{
+    margin-top: 0;
+}
+
+@media only screen and (max-width: 800px){
+    .project{
+        flex-direction: column;
+        margin:0;
+    }
+
+    .project-img{
+        width: 90%;
+        display: none;
+    }
+
+    .project-info{
+        width: 80%;
+        margin: 5px;
+        background-image: url(./images/weatherApp.png) cover;
+    }
+
 }

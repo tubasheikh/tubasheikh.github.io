@@ -5,11 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/main.css">
-    <script src="/js/main.js" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&family=Roboto:wght@100&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/2b22aff2cf.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="/js/main.js" defer></script>
     <title>Tuba Sheikh</title>
 </head>
 <body>
@@ -34,17 +35,23 @@
         <section id="main">
         <div class="flex">
             <h1 class="main_heading">Front-end Developer</h1>
-            <p class="sub_heading">I design and code beautifully simple things, and I love what I do.</p>
+            <p class="sub_heading">I code beautifully simple things, and I love what I do.</p>
             <img class="me" src="/images/icon.jpg">
             <img class="icon" src="/images/frontendicon.png" alt="Front-end Icon">
         </div>
         </section>
         
         <section id="about">
-        
+        <div class="about-content">
             <h2>Hi, I'm Tuba. Nice to meet you.</h2>
-            <p id="about_me"> I am a graduate from Durham College in Computer Programming. I am an avid learner who is always on the move to advance my skills. </p>
-        
+            <p id="about_me"> 
+                I am a graduate from Durham College in Computer Programming. 
+                I am an avid learner who is always on the move to advance my skills. 
+                Through my course work I found profound interest in web development and so here I am.
+                My main drive is to deliver creative and effective solutions by approaching business problems 
+                with an analytical mindset and creating aesthetically pleasing front ends to provide a pleasant user experience.
+            </p>
+        </div>
         </section>
    
 
@@ -75,8 +82,12 @@
                     <span class="tech_name">PYTHON</span>
                 </div>
                 <div class="tech">
-                    <img src="/images/react.png" alt="React Logo">
-                    <span class="tech_name">REACT</span>
+                    <img src="/images/jquery.png" alt="jQuery Logo">
+                    <span class="tech_name">JQUERY</span>
+                </div>
+                <div class="tech">
+                    <img src="/images/bootstrap.png" alt="jQuery Logo">
+                    <span class="tech_name">BOOTSTRAP</span>
                 </div>
                 <div class="tech">
                     <img src="/images/sql.png" alt="SQL Logo">
@@ -84,6 +95,7 @@
                 </div>
                 <div class="tech">
                     <img src="/images/git.png" alt="Git/GitHub Logo">
+                    <span class="tech_name">Git/GitHub</span>
                 </div>
             </div>
             </div>
@@ -91,28 +103,106 @@
 
         <section id="projects">
             <h1> Here is some of my recent work.</h1>
-            <div class="container">
-                 
                 <div class="project-list">
                     <div class="project">
-                     <img src="./images/icon.jpg" alt="">
+                        <div class="project-img">
+                            <img src="./images/weatherApp.png" alt="WeatherApp Image">
+                        </div>
+                        <div class="project-info right">
+                            <div class="content">
+                                <h2>Weather App</h2>
+                                <p class="proj-description">
+                                    This application fetches json data from an API based on the place entered by the user or uses geolocation to get and display the weather details.
+                                </p>
+                                <p class="tech-used">
+                                    HTML | CSS | JAVASCRIPT | JQUERY | JSON | ASYNCHRONOUS REQUEST HANDLING
+                                </p>
+                                <div class="project-links">
+                                    <a href="https://github.com/tubasheikh/WeatherApp">
+                                        <i class="fa-brands fa-github fa-lg"></i>
+                                    </a>
+                                    <a href="https://tubasheikh.github.io/WeatherApp/"><i class="fas fa-external-link fa-lg"></i>
+                                    </a>
+                                </div>
+                                
+                            </div>
+                        </div>
                     </div>
+
                     <div class="project">
-                        <img src="./images/icon.jpg" alt="">
+                        <div class="project-info left">
+                            <div class="content">
+                                <h2>My Portfolio Site</h2>
+                                <p class="proj-description">
+                                    This application fetches json data from an API based on the place entered by the user or uses geolocation to get and display the weather details.
+                                </p>
+                                <p class="tech-used">
+                                    HTML | CSS | JAVASCRIPT 
+                                </p>
+                                <div class="project-links">
+                                    <a href="https://github.com/tubasheikh/tubasheikh.github.io">
+                                        <i class="fa-brands fa-github fa-lg"></i>
+                                    </a>
+                                    <a href="https://tubasheikh.github.io/"><i class="fas fa-external-link fa-lg"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-img">
+                            <img src="./images/porfolio-site.png" alt="Portfolio-site Image">
+                        </div>
                     </div>
+
                     <div class="project">
-                        <img src="./images/icon.jpg" alt="">
+                        <div class="project-img">
+                            <img src="./images/work-in-progress.png" alt="">
+                        </div>
+                        <div class="project-info right">
+                            <div class="content">
+                                <h2>Single Page Application</h2>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                                </p>
+                                <p class="tech-used">
+                                    HTML | CSS | JAVASCRIPT | AJAX | CURD OPERATIONS | BOOTSTRAP
+                                </p>
+                            </div>
+                        </div>
                     </div>
+
                     <div class="project">
-                        <img src="./images/icon.jpg" alt="">
+                        <div class="project-info left">
+                            <div class="content">
+                                <h2>Business Site</h2>
+                                <p class="proj-description">
+                                    This application fetches json data from an API based on the place entered by the user or uses geolocation to get and display the weather details.
+                                </p>
+                                <p class="tech-used">
+                                    HTML | CSS | JAVASCRIPT 
+                                </p>
+                                <div class="project-links">
+                                    <a href="https://github.com/tubasheikh/BusinessSite">
+                                        <i class="fa-brands fa-github fa-lg"></i>
+                                    </a>
+                                    <a href="https://tubasheikh.github.io/BusinessSite/"><i class="fas fa-external-link fa-lg"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-img">
+                            <img src="./images/Landing Page.png" alt="Portfolio-site Image">
+                        </div>
                     </div>
+
                 </div>
-            </div>
         </section>
         
         <section id="contact">
             <div class="flex">
-                <h1>Let's get in touch</h1>
+                <h1>Work In progress</h1>
+                <h2>Let's get in touch</h2>
+                <p>Please contact me through my email, tubasheikh22@gmail.com or <a href="https://www.linkedin.com/in/tuba-sheikh-401253226/">LinkedIn</a></p>
                 <div class="messageArea"></div>
                 <div class="form">
                     <form>
@@ -121,7 +211,7 @@
                             <input type="text"  id="lastName" placeholder="Last Name" required>
                         </div>
                         <input type="email" id="emailId" placeholder="Email Address" required>
-                        <textarea rows="6" class="input" id="message" placeholder="Type your Message here!" autocomplete="off" required></textarea>
+                        <input type="text" id="message" placeholder="Type Your Message Here!" required>
                         <div class="flex-hor">
                             <button class="reset" onclick="resetForm()">Reset</button>
                             <button class="submit" onclick="submitForm()">Submit</button>
@@ -136,15 +226,11 @@
             <div class="footer-content">
                 <ul class="socials">
                     <li class="socials_link">
-                        <i class="fas fa-envelope"></i> 
-                        <span class="socials_name">Email</span> 
-                    </li>
-                    <li class="socials_link">
                         <i class="fab fa-linkedin-in"></i>
                         <span class="socials_name">LinkedIn</span> 
                     </li>
                     <li class="socials_link">
-                        <i class="fa-brands fa-github"></i> 
+                        <i class="fab fa-github link"></i> 
                         <span class="socials_name">GitHub</span> 
                     </li>
                     <li class="socials_link">
@@ -156,6 +242,8 @@
         </footer>
 
     </div>
-    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    
 </body>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    
 </html>

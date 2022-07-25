@@ -30,10 +30,16 @@ linkedin.addEventListener("click", () => {
 	window.open("https://www.linkedin.com/in/tuba-sheikh-401253226/", "_blank");
 });
 
-const github = document.querySelector(".fa-github");
-github.addEventListener("click", () => {
+const githubLink = document.querySelector(".link");
+githubLink.addEventListener("click", () => {
 	window.open("https://github.com/tubasheikh", "_blank");
 });
+
+const resume = document.querySelector(".fa-file");
+resume.addEventListener("click", () => {
+	window.open("./resources/Tuba2022.pdf", "_blank");
+});
+
 
 
 /* CONTACT FORM */
@@ -46,20 +52,24 @@ function resetForm() {
 }
 
 function submitForm(){
-    message = message.value;
-    sendEmail(message);
+    emailBody = message.value;
+    sendEmail();
+	resetForm();
 }
 
 function sendEmail(message) {
 	Email.send({
         SecureToken : "15041e16-da70-44ef-b4a7-710a85149c96",
 		Host: "smtp.elasticemail.com",
-		Username: "booksandbeyond22@gmail.com",
-		Password: "BCC69F5A55EC41E0C675EFBC33EDD7CE89B8",
 		To: "tubasheikh22@gmail.com",
 		From: "booksandbeyond22@gmail.com",
 		Subject: "Contact from web portfolio",
 		Body: message
 	});
 	console.log("email sent");
-}
+} 
+
+
+/* Scroll Reveal */
+ScrollReveal().reveal(".tech", {easing: "ease-in", interval: 40, delay: 100, reset: true, mobile: false});
+ScrollReveal().reveal(".project", {easing: "ease-in", interval: 40, delay: 200, opacity: 0.1, reset: true, mobile: false});
